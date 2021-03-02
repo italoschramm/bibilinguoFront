@@ -9,13 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LarningLanguages">
+        <activity android:name=".LessonActivity"
+                  android:theme="@style/Theme.LarningLanguages.NoActionBar"/>
         <activity
-            android:name="br.com.italoschramm.bibilinguo.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.LarningLanguages.NoActionBar"></activity>
-        <activity android:name="br.com.italoschramm.bibilinguo.RegisterActivity" android:theme="@style/Theme.LarningLanguages.NoActionBar"/>
+            android:theme="@style/Theme.LarningLanguages.NoActionBar" />
         <activity
-            android:name="br.com.italoschramm.bibilinguo.LoginActivity"
+            android:name=".RegisterActivity"
+            android:theme="@style/Theme.LarningLanguages.NoActionBar" />
+        <activity
+            android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.LarningLanguages.NoActionBar">
             <intent-filter>

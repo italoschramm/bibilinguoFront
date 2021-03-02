@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import br.com.italoschramm.bibilinguo.LessonActivity;
 import br.com.italoschramm.bibilinguo.R;
 import br.com.italoschramm.bibilinguo.RegisterActivity;
 
@@ -39,7 +40,7 @@ public class HomeFragment extends Fragment {
         ImageView imgLesson1 = (ImageView) root.findViewById(R.id.imageLesson1);
         imgLesson1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent registerActivity = new Intent(getActivity(), RegisterActivity.class);
+                Intent registerActivity = new Intent(getActivity(), LessonActivity.class);
                 startActivity(registerActivity);
             }
         });
