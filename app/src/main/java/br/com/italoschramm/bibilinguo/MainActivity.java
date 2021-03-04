@@ -1,6 +1,7 @@
 package br.com.italoschramm.bibilinguo;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         loadUserProfile(hView);
+        loadLevels(hView);
 
     }
 
@@ -73,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textEmail = (TextView)hView.findViewById(R.id.textEmailProfile);
         textEmail.setText(user.getEmail());
+    }
+
+    private void loadLevels(View hView){
+
     }
 
     @Override

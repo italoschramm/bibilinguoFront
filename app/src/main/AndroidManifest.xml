@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LarningLanguages">
-        <activity android:name=".LessonActivity"
-                  android:theme="@style/Theme.LarningLanguages.NoActionBar"/>
+        <activity
+            android:name=".LoadActivity"
+            android:theme="@style/Theme.LarningLanguages.NoActionBar"/>
+        <activity
+            android:name=".LessonActivity"
+            android:theme="@style/Theme.LarningLanguages.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"

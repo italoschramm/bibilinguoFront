@@ -5,24 +5,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import br.com.italoschramm.bibilinguo.client.RequestClient;
+import br.com.italoschramm.bibilinguo.client.RequestClientLevelInter;
 import br.com.italoschramm.bibilinguo.client.RequestClientLoginInter;
 import br.com.italoschramm.bibilinguo.components.MessageBox;
 import br.com.italoschramm.bibilinguo.config.ServerConfig;
 import br.com.italoschramm.bibilinguo.model.User;
+import br.com.italoschramm.bibilinguo.model.rest.Level;
 import br.com.italoschramm.bibilinguo.model.rest.Login;
 import br.com.italoschramm.bibilinguo.model.rest.Token;
+import br.com.italoschramm.bibilinguo.service.LevelService;
 import br.com.italoschramm.bibilinguo.service.LoginService;
 
-public class LoginActivity extends AppCompatActivity implements RequestClientLoginInter {
+public class LoginActivity extends AppCompatActivity implements RequestClientLoginInter, RequestClientLevelInter {
 
     private RequestClient request;
     private LoginService loginService;
+    private LevelService levelService;
     private MessageBox message;
+    private User user = new User();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,22 +73,27 @@ public class LoginActivity extends AppCompatActivity implements RequestClientLog
             message = new MessageBox(this);
             message.generateAlert(loginService.erros.getMessage(), "Erro");
         }else{
-            User user = new User();
             user.setId(token.getUser().getId());
             user.setName(token.getUser().getName());
             user.setEmail(token.getUser().getEmail());
             user.setActive(token.getUser().isActive());
             user.setImageProfile(token.getUser().getUserImage());
 
-            Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
-            mainActivity.putExtra("User", user);
-            startActivity(mainActivity);
-            Log.d(ServerConfig.TAG, token.getToken());
+            levelService = new LevelService(LoginActivity.this);
+            levelService.getLevels(token.getToken());
         }
     }
 
     @Override
-    public void onTaskDone(String result) {
-
+    public void onTaskDone(Level[] level) {
+        if(levelService.erros.isHasErro()) {
+            message = new MessageBox(this);
+            message.generateAlert(levelService.erros.getMessage(), "Erro");
+        }else{
+                Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
+                mainActivity.putExtra("User", user);
+                mainActivity.putExtra("Level", level);
+                startActivity(mainActivity);
+        }
     }
 }

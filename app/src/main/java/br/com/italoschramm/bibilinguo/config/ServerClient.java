@@ -10,5 +10,6 @@ public class ServerClient {
     public static final String USER_REGISTER = "user/register/";
     public static final String LOGIN = "login";
     public static final String USER_GETIMAGE = "user/getImageProfile/";
+    public static final String USER_GETLEVELS = "level/listLevelsActive/";
 
 }

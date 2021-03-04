@@ -2,8 +2,10 @@ package br.com.italoschramm.bibilinguo.service;
 
 import android.content.Context;
 
+import com.android.volley.Request;
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
@@ -35,7 +37,7 @@ public class UserService implements RequestClientInter {
 
         String url = ServerClient.URL_API + ServerClient.USER_REGISTER;
         request = new RequestClient(UserService.this);
-        request.requestPost(jsonString, url, context);
+        request.request(jsonString, url, context, Request.Method.POST);
     }
 
     @Override
@@ -53,7 +55,7 @@ public class UserService implements RequestClientInter {
     }
 
     @Override
-    public void onTaskDone(String result) {
+    public void onTaskDone(JSONArray jsonObject) {
 
     }
 

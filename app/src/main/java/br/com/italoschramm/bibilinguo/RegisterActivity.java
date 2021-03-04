@@ -119,11 +119,6 @@ public class RegisterActivity extends AppCompatActivity implements RequestClient
     }
 
     @Override
-    public void onTaskDone(String result) {
-
-    }
-
-    @Override
     public void onTaskDoneRegister(UserReturn userReturn) {
         if(userService.erros.isHasErro())
             message.generateAlert(request.erros.getMessage(), "Erro");

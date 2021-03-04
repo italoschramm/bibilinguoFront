@@ -12,32 +12,35 @@ import java.lang.ref.WeakReference;
 
 import br.com.italoschramm.bibilinguo.client.RequestClient;
 import br.com.italoschramm.bibilinguo.client.RequestClientInter;
+import br.com.italoschramm.bibilinguo.client.RequestClientLevelInter;
 import br.com.italoschramm.bibilinguo.client.RequestClientLoginInter;
 import br.com.italoschramm.bibilinguo.config.ServerClient;
+import br.com.italoschramm.bibilinguo.model.rest.Level;
 import br.com.italoschramm.bibilinguo.model.rest.Login;
 import br.com.italoschramm.bibilinguo.model.rest.Token;
 import br.com.italoschramm.bibilinguo.util.Erro;
 
-public class LoginService implements RequestClientInter{
+public class LevelService implements RequestClientInter {
 
     private RequestClient request;
     private Context context;
+    private WeakReference<RequestClientLevelInter> mCallBack;
     public Erro erros = new Erro();
-    private Token token;
-    private String pictureProfile;
-    private WeakReference<RequestClientLoginInter> mCallBack;
+    private Level[] level;
 
-    public LoginService(Context context){
+    public LevelService(Context context){
         this.context = context;
         this.mCallBack = new WeakReference(context);
     }
 
-    public void login(Login login){
+
+    public void getLevels(String token){
         Gson gson = new Gson();
-        request = new RequestClient(LoginService.this);
-        String jsonString = gson.toJson(login);
-        request.request(jsonString, ServerClient.URL_API + ServerClient.LOGIN, context, Request.Method.POST);
+        request = new RequestClient(LevelService.this);
+        String jsonString = "";
+        request.requestArray(jsonString, ServerClient.URL_API + ServerClient.USER_GETLEVELS, context, Request.Method.GET, token);
     }
+
 
     @Override
     public void onTaskDone(JSONObject jsonObject) {
@@ -48,7 +51,7 @@ public class LoginService implements RequestClientInter{
         }   else{
 
             Gson gson = new Gson();
-            token = gson.fromJson(jsonObject.toString(), Token.class);
+            //level = gson.fromJson(jsonObject.toString(), Level.class);
             callBack();
 
         }
@@ -56,13 +59,23 @@ public class LoginService implements RequestClientInter{
 
     @Override
     public void onTaskDone(JSONArray jsonObject) {
+        if(request.erros.isHasErro()) {
+            erros = request.erros;
+            callBack();
+            return;
+        }   else{
 
+            Gson gson = new Gson();
+            level = gson.fromJson(jsonObject.toString(), Level[].class);
+            callBack();
+
+        }
     }
 
     private void callBack(){
-        final RequestClientLoginInter callBack = mCallBack.get();
+        final RequestClientLevelInter callBack = mCallBack.get();
         if (callBack != null) {
-            callBack.onTaskDoneLogin(token);
+            callBack.onTaskDone(level);
         }
     }
 
