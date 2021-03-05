@@ -3,30 +3,33 @@ package br.com.italoschramm.bibilinguo.model.rest;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Subject implements Parcelable {
+public class Answer implements Parcelable {
 
     private long id;
     private String description;
     private String image;
+    private String sound;
+    private Question question;
     private boolean active;
-    private Question[] question;
 
-    protected Subject(Parcel in) {
+    protected Answer(Parcel in) {
         id = in.readLong();
         description = in.readString();
         image = in.readString();
+        sound = in.readString();
+        question = in.readParcelable(Question.class.getClassLoader());
         active = in.readByte() != 0;
     }
 
-    public static final Creator<Subject> CREATOR = new Creator<Subject>() {
+    public static final Creator<Answer> CREATOR = new Creator<Answer>() {
         @Override
-        public Subject createFromParcel(Parcel in) {
-            return new Subject(in);
+        public Answer createFromParcel(Parcel in) {
+            return new Answer(in);
         }
 
         @Override
-        public Subject[] newArray(int size) {
-            return new Subject[size];
+        public Answer[] newArray(int size) {
+            return new Answer[size];
         }
     };
 
@@ -54,20 +57,28 @@ public class Subject implements Parcelable {
         this.image = image;
     }
 
+    public String getSound() {
+        return sound;
+    }
+
+    public void setSound(String sound) {
+        this.sound = sound;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
     public boolean isActive() {
         return active;
     }
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public Question[] getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(Question[] question) {
-        this.question = question;
     }
 
     @Override
@@ -80,7 +91,8 @@ public class Subject implements Parcelable {
         parcel.writeLong(id);
         parcel.writeString(description);
         parcel.writeString(image);
+        parcel.writeString(sound);
+        parcel.writeParcelable(question, i);
         parcel.writeByte((byte) (active ? 1 : 0));
     }
-
 }

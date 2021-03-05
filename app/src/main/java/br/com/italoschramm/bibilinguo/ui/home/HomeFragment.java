@@ -1,10 +1,7 @@
 package br.com.italoschramm.bibilinguo.ui.home;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -13,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,35 +17,45 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import br.com.italoschramm.bibilinguo.LessonActivity;
-import br.com.italoschramm.bibilinguo.LoadActivity;
+import br.com.italoschramm.bibilinguo.LoginActivity;
 import br.com.italoschramm.bibilinguo.R;
+import br.com.italoschramm.bibilinguo.client.RequestClientQuestionInter;
+import br.com.italoschramm.bibilinguo.components.MessageBox;
 import br.com.italoschramm.bibilinguo.config.ServerConfig;
 import br.com.italoschramm.bibilinguo.model.User;
 import br.com.italoschramm.bibilinguo.model.rest.Level;
+import br.com.italoschramm.bibilinguo.model.rest.Question;
 import br.com.italoschramm.bibilinguo.model.rest.Subject;
-import jp.wasabeef.picasso.transformations.CropCircleTransformation;
+import br.com.italoschramm.bibilinguo.service.LoginService;
+import br.com.italoschramm.bibilinguo.service.QuestionService;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RequestClientQuestionInter {
 
     private HomeViewModel homeViewModel;
 
     public User user;
 
+    private String token;
+
     private Level[] level;
+
+    private QuestionService questionService;
+
+    private MessageBox message;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        token = getActivity().getIntent().getExtras().getString("Token");
         loadSubjects(root);
 
         //final TextView textView = root.findViewById(R.id.text_home);
@@ -124,11 +130,26 @@ public class HomeFragment extends Fragment {
         ImageView imgLesson = (ImageView) line.findViewById(R.id.imageLessonHome);
         imgLesson.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent registerActivity = new Intent(getActivity(), LessonActivity.class);
-                registerActivity.putExtra("idSubject", idSubject);
-                startActivity(registerActivity);
+                getQuestions(idSubject);
             }
         });
     }
 
+    public void getQuestions(long idQuestion){
+        questionService = new QuestionService(this);
+        questionService.getQuestionsBySubject(token, idQuestion);
+    }
+
+    @Override
+    public void onTaskDone(Question[] questions) {
+        if(questionService.erros.isHasErro()) {
+            message = new MessageBox(this.getContext());
+            message.generateAlert(questionService.erros.getMessage(), "Erro");
+        }else {
+            Intent registerActivity = new Intent(getActivity(), LessonActivity.class);
+            registerActivity.putExtra("Questions", questions);
+            startActivity(registerActivity);
+        }
+
+    }
 }

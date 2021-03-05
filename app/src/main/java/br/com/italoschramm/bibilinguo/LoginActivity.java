@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements RequestClientLog
     private LevelService levelService;
     private MessageBox message;
     private User user = new User();
+    private String tokenCod;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class LoginActivity extends AppCompatActivity implements RequestClientLog
             message = new MessageBox(this);
             message.generateAlert(loginService.erros.getMessage(), "Erro");
         }else{
+            tokenCod = token.getToken();
             user.setId(token.getUser().getId());
             user.setName(token.getUser().getName());
             user.setEmail(token.getUser().getEmail());
@@ -93,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements RequestClientLog
                 Intent mainActivity = new Intent(LoginActivity.this, MainActivity.class);
                 mainActivity.putExtra("User", user);
                 mainActivity.putExtra("Level", level);
+                mainActivity.putExtra("Token", tokenCod);
                 startActivity(mainActivity);
         }
     }
