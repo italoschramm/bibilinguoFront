@@ -249,11 +249,59 @@
 
     </GridLayout>
 
-    <RelativeLayout
-        android:layout_weight="1"
+    <LinearLayout
+        android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="0dp"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:id="@+id/layoutLessonAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:id="@+id/imageAnswerWrongRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/backgroundred"
+                android:scaleType="fitXY"
+                />
+                
+                <TextView
+                    android:id="@+id/textLessonReturnAnswer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="10dp"
+                    >
+
+                </TextView>
+            
+                <Button
+                    android:id="@+id/imageAnswerContinue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Continuar"
+                    >
+                </Button>
+
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp">
 
         <Button
             android:id="@+id/buttonLessonSend"
@@ -264,6 +312,14 @@
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+    </FrameLayout>
 
 
 </LinearLayout>

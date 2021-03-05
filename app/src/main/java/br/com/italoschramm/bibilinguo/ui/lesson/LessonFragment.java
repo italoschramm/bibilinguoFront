@@ -3,6 +3,7 @@ package br.com.italoschramm.bibilinguo.ui.lesson;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -11,9 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 
@@ -94,16 +98,19 @@ public class LessonFragment extends Fragment {
 
     private void loadButton(Question question){
         Button btSend = (Button) mView.findViewById(R.id.buttonLessonSend);
+        ImageView imageAnswer = (ImageView) mView.findViewById(R.id.imageAnswerWrongRight);
+        RelativeLayout relativeLayout = (RelativeLayout) mView.findViewById(R.id.layoutLessonAnswer);
+        TextView textView = (TextView) mView.findViewById(R.id.textLessonReturnAnswer);
         btSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if(question.getRightAnswer().getId() == selected){
-                    message = new MessageBox(getActivity());
-                    message.generateAlert("Resposta correta", "Acertou Mizeravi");
+                    imageAnswer.setImageResource(R.drawable.backgroundgreen);
+                    textView.setText("Resposta correta");
                 }else{
-                    message = new MessageBox(getActivity());
-                    message.generateAlert("Resposta correta", "Errou Burrão");
+                    imageAnswer.setImageResource(R.drawable.backgroundred);
+                    textView.setText("Resposta errada");
                 }
-
+                relativeLayout.setVisibility(View.VISIBLE);
             }
         });
     }
