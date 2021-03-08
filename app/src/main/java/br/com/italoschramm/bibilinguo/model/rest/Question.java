@@ -3,6 +3,7 @@ package br.com.italoschramm.bibilinguo.model.rest;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class Question implements Parcelable {
@@ -12,6 +13,7 @@ public class Question implements Parcelable {
     private String sound;
     private List<Answer> answer;
     private Answer rightAnswer;
+    private TypeQuestion typeQuestion;
     private boolean active;
 
     protected Question(Parcel in) {
@@ -21,6 +23,7 @@ public class Question implements Parcelable {
         active = in.readByte() != 0;
         answer = in.createTypedArrayList(Answer.CREATOR);
         rightAnswer = (Answer) in.readParcelable(Answer.class.getClassLoader());
+        typeQuestion = (TypeQuestion) in.readParcelable(TypeQuestion.class.getClassLoader());
     }
 
     public static final Creator<Question> CREATOR = new Creator<Question>() {
@@ -87,6 +90,14 @@ public class Question implements Parcelable {
         this.active = active;
     }
 
+    public TypeQuestion getTypeQuestion() {
+        return typeQuestion;
+    }
+
+    public void setTypeQuestion(TypeQuestion typeQuestion) {
+        this.typeQuestion = typeQuestion;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -100,5 +111,6 @@ public class Question implements Parcelable {
         parcel.writeByte((byte) (active ? 1 : 0));
         parcel.writeTypedList(answer);
         parcel.writeParcelable(rightAnswer, i);
+        parcel.writeParcelable(typeQuestion, i);
     }
 }

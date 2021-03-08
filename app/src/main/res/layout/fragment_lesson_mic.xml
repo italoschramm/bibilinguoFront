@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.lesson.LessonMicFragment"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:id="@+id/layoutMainMicLesson">
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <RelativeLayout
+            android:layout_weight="0.8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <ProgressBar
+                android:id="@+id/lessonProgressBar"
+                style="@android:style/Widget.ProgressBar.Horizontal"
+                android:layout_width="200dp"
+                android:layout_weight="0.8"
+                android:layout_height="wrap_content"
+                android:progress="0"
+                android:progressDrawable="@drawable/progress_color"
+                android:layout_centerInParent="true"/>
+
+        </RelativeLayout>
+
+        <!-- Column 2 Grid Title-->
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageCloseLesson"
+                android:src="@drawable/ic_menu_close_clear_cancel"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true">
+
+            </ImageView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp">
+
+        <!-- Grid Question - Column 1-->
+
+        <RelativeLayout
+            android:layout_weight="0.8"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:textAlignment="center"
+                android:textSize="22dp"
+                android:text="Teste"
+                android:id="@+id/textLessonQuestion">
+            </TextView>
+        </RelativeLayout>
+
+        <!-- Grid Question - Column 2-->
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageLessonSound"
+                android:src="@drawable/sound"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true">
+
+            </ImageView>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:weightSum="6">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/lesson1"
+                    android:id="@+id/imageAnswerMic">
+
+
+                </ImageView>
+
+            </RelativeLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="2">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mic"
+                android:id="@+id/imageLessonMic"
+                ></ImageView>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_weight="3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layoutLessonAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+
+            <ImageView
+                android:id="@+id/imageAnswerWrongRight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/backgroundred"
+                android:scaleType="fitXY"
+                />
+
+            <TextView
+                android:id="@+id/textLessonReturnAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                >
+
+            </TextView>
+
+            <Button
+                android:id="@+id/buttonAnswerContinue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Continuar"
+                >
+            </Button>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:textSize="20dp"
+            android:layout_centerInParent="true"
+            android:id="@+id/buttonLessonSend"
+            android:enabled="false">
+            </Button>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

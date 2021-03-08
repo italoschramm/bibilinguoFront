@@ -1,32 +1,33 @@
 package br.com.italoschramm.bibilinguo.ui.lesson;
 
-import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
 
-import br.com.italoschramm.bibilinguo.LoginActivity;
+import br.com.italoschramm.bibilinguo.LessonActivity;
 import br.com.italoschramm.bibilinguo.R;
-import br.com.italoschramm.bibilinguo.RegisterActivity;
 import br.com.italoschramm.bibilinguo.components.MessageBox;
 import br.com.italoschramm.bibilinguo.model.rest.Answer;
 import br.com.italoschramm.bibilinguo.model.rest.Question;
+import br.com.italoschramm.bibilinguo.util.Util;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,6 +46,14 @@ public class LessonFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private View mView;
+    private int progress;
+
+    @Nullable
+    @Override
+    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
+        return super.onCreateAnimation(transit, enter, nextAnim);
+    }
+
     private Question question;
     private MediaPlayer mediaPlayerQuestion;
     private long selected;
@@ -72,8 +81,10 @@ public class LessonFragment extends Fragment {
 
     }
 
-    public LessonFragment(Question question) {
+    public LessonFragment(Question question, int progress) {
+
         this.question = question;
+        this.progress = progress;
     }
 
     @Override
@@ -93,7 +104,17 @@ public class LessonFragment extends Fragment {
         mView = view;
         loadComponents();
         mediaPlayerQuestion.start();
+        loadSpeak();
         return view;
+    }
+
+    private void loadSpeak(){
+        ImageView image = (ImageView) mView.findViewById(R.id.imageLessonSound);
+        image.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mediaPlayerQuestion.start();
+            }
+        });
     }
 
     private void loadButton(Question question){
@@ -103,19 +124,41 @@ public class LessonFragment extends Fragment {
         TextView textView = (TextView) mView.findViewById(R.id.textLessonReturnAnswer);
         btSend.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                boolean answerRight = false;
+                String filename = null;
                 if(question.getRightAnswer().getId() == selected){
                     imageAnswer.setImageResource(R.drawable.backgroundgreen);
                     textView.setText("Resposta correta");
+                    filename = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.success;
+                    answerRight = true;
                 }else{
                     imageAnswer.setImageResource(R.drawable.backgroundred);
                     textView.setText("Resposta errada");
+                    filename = "android.resource://" + getActivity().getPackageName() + "/" + R.raw.error;
                 }
                 relativeLayout.setVisibility(View.VISIBLE);
+                try {
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), Uri.parse(filename));
+                    mediaPlayer.start();
+                } catch (Exception e) {
+                }
+
+                Button buttonContinue = (Button) mView.findViewById(R.id.buttonAnswerContinue);
+                boolean finalAnswerRight = answerRight;
+                buttonContinue.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        ((LessonActivity)getActivity()).loadNewQuestion(question, finalAnswerRight);
+                    }
+                });
+
             }
         });
     }
 
     private void loadComponents(){
+
+        ProgressBar progressBar = (ProgressBar) mView.findViewById(R.id.lessonProgressBar);
+        progressBar.setProgress(progress);
 
         TextView textQuestion = mView.findViewById(R.id.textLessonQuestion);
         textQuestion.setText(question.getDescription());

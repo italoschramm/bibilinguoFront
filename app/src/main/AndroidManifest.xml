@@ -3,39 +3,49 @@
     package="br.com.italoschramm.bibilinguo">
 
     <application
-        android:screenOrientation="portrait"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.LarningLanguages">
         <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.LarningLanguages.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".LoadActivity"
-            android:theme="@style/Theme.LarningLanguages.NoActionBar"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.LarningLanguages.NoActionBar" />
         <activity
             android:name=".LessonActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.LarningLanguages.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.LarningLanguages.NoActionBar" />
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.LarningLanguages.NoActionBar" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.LarningLanguages.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-
 
 </manifest>

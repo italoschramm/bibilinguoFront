@@ -2,17 +2,24 @@ package br.com.italoschramm.bibilinguo;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -20,6 +27,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import br.com.italoschramm.bibilinguo.config.ServerConfig;
+import br.com.italoschramm.bibilinguo.contract.LoginDbHelper;
 import br.com.italoschramm.bibilinguo.model.User;
 import br.com.italoschramm.bibilinguo.service.LoginService;
 import jp.wasabeef.picasso.transformations.CropCircleTransformation;
@@ -27,9 +36,10 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-
     public User user;
-
+    private NavigationView navigationView;
+    private NavController navController;
+    private DrawerLayout drawer;
     private LoginService loginService;
 
     @Override
@@ -46,22 +56,20 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        drawer = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
         View hView =  navigationView.getHeaderView(0);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_profile, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
         loadUserProfile(hView);
-        loadLevels(hView);
-
     }
 
     private void loadUserProfile(View hView){
@@ -75,14 +83,6 @@ public class MainActivity extends AppCompatActivity {
 
         TextView textEmail = (TextView)hView.findViewById(R.id.textEmailProfile);
         textEmail.setText(user.getEmail());
-    }
-
-    private void loadLevels(View hView){
-
-    }
-
-    public void teste(){
-
     }
 
     @Override
@@ -100,4 +100,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuExit:
+                LoginDbHelper data = new LoginDbHelper(MainActivity.this);
+                data.deleteData();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+     */
 }

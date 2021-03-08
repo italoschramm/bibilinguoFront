@@ -17,6 +17,7 @@ import br.com.italoschramm.bibilinguo.client.RequestClientLevelInter;
 import br.com.italoschramm.bibilinguo.client.RequestClientLoginInter;
 import br.com.italoschramm.bibilinguo.components.MessageBox;
 import br.com.italoschramm.bibilinguo.config.ServerConfig;
+import br.com.italoschramm.bibilinguo.contract.LoginDbHelper;
 import br.com.italoschramm.bibilinguo.model.User;
 import br.com.italoschramm.bibilinguo.model.rest.Level;
 import br.com.italoschramm.bibilinguo.model.rest.Login;
@@ -69,17 +70,19 @@ public class LoginActivity extends AppCompatActivity implements RequestClientLog
     }
 
     @Override
-    public void onTaskDoneLogin(Token token) {
+    public void onTaskDoneLogin(Token token, User user) {
         if(loginService.erros.isHasErro()){
             message = new MessageBox(this);
             message.generateAlert(loginService.erros.getMessage(), "Erro");
         }else{
             tokenCod = token.getToken();
-            user.setId(token.getUser().getId());
-            user.setName(token.getUser().getName());
-            user.setEmail(token.getUser().getEmail());
-            user.setActive(token.getUser().isActive());
-            user.setImageProfile(token.getUser().getUserImage());
+            user = user;
+
+            LoginDbHelper data = new LoginDbHelper(LoginActivity.this);
+            EditText edLogin = (EditText)findViewById(R.id.edLogin);
+            EditText edPassword = (EditText)findViewById(R.id.edPassword);
+            data.deleteData();
+            data.insertData(edLogin.getText().toString(), edPassword.getText().toString());
 
             levelService = new LevelService(LoginActivity.this);
             levelService.getLevels(token.getToken());

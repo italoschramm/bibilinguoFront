@@ -12,14 +12,16 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="br.com.italoschramm.bibilinguo.ui.lesson.LessonFragment"
-        android:label="@string/menu_lesson"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_profile"
+        android:name="br.com.italoschramm.bibilinguo.ui.profile.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile">
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="br.com.italoschramm.bibilinguo.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_exit"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_slideshow">
+    </fragment>
 </navigation>

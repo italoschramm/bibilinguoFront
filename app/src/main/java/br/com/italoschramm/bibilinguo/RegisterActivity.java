@@ -100,12 +100,11 @@ public class RegisterActivity extends AppCompatActivity implements RequestClient
     }
 
     @Override
-    public void onTaskDoneLogin(Token token) {
+    public void onTaskDoneLogin(Token token, User user) {
         if(loginService.erros.isHasErro()){
             message = new MessageBox(this);
             message.generateAlert(loginService.erros.getMessage(), "Erro");
         }else{
-            User user = new User();
             user.setName(token.getUser().getName());
             user.setEmail(token.getUser().getEmail());
             user.setActive(token.getUser().isActive());

@@ -14,6 +14,7 @@ import br.com.italoschramm.bibilinguo.client.RequestClient;
 import br.com.italoschramm.bibilinguo.client.RequestClientInter;
 import br.com.italoschramm.bibilinguo.client.RequestClientLoginInter;
 import br.com.italoschramm.bibilinguo.config.ServerClient;
+import br.com.italoschramm.bibilinguo.model.User;
 import br.com.italoschramm.bibilinguo.model.rest.Login;
 import br.com.italoschramm.bibilinguo.model.rest.Token;
 import br.com.italoschramm.bibilinguo.util.Erro;
@@ -24,6 +25,7 @@ public class LoginService implements RequestClientInter{
     private Context context;
     public Erro erros = new Erro();
     private Token token;
+    private User user = new User();
     private String pictureProfile;
     private WeakReference<RequestClientLoginInter> mCallBack;
 
@@ -49,6 +51,14 @@ public class LoginService implements RequestClientInter{
 
             Gson gson = new Gson();
             token = gson.fromJson(jsonObject.toString(), Token.class);
+
+
+            user.setId(token.getUser().getId());
+            user.setName(token.getUser().getName());
+            user.setEmail(token.getUser().getEmail());
+            user.setActive(token.getUser().isActive());
+            user.setImageProfile(token.getUser().getUserImage());
+
             callBack();
 
         }
@@ -62,7 +72,7 @@ public class LoginService implements RequestClientInter{
     private void callBack(){
         final RequestClientLoginInter callBack = mCallBack.get();
         if (callBack != null) {
-            callBack.onTaskDoneLogin(token);
+            callBack.onTaskDoneLogin(token, user);
         }
     }
 
