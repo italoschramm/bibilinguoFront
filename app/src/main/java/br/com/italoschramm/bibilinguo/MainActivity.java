@@ -1,5 +1,6 @@
 package br.com.italoschramm.bibilinguo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_profile, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_profile, R.id.nav_logout)
                 .setDrawerLayout(drawer)
                 .build();
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -100,17 +101,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    /*
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuExit:
-                LoginDbHelper data = new LoginDbHelper(MainActivity.this);
-                data.deleteData();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(drawer.isDrawerOpen(GravityCompat.START)){
+
         }
     }
-     */
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_logout) {
+            LoginDbHelper data = new LoginDbHelper(MainActivity.this);
+            data.deleteData();
+            Intent loginActivity = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginActivity);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

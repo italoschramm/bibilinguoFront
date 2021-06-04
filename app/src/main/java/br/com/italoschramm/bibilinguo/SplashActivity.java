@@ -50,12 +50,12 @@ public class SplashActivity extends AppCompatActivity implements RequestClientLo
                     loginService = new LoginService(SplashActivity.this);
                     loginService.login(login);
                 }else{
-                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, LoadActivity.class);
                     startActivity(intent);
                 }
 
             }
-        }, 2000);
+        }, 5000);
 
     }
 
@@ -63,7 +63,7 @@ public class SplashActivity extends AppCompatActivity implements RequestClientLo
     public void onTaskDoneLogin(Token token, User user) {
         if(loginService.erros.isHasErro()){
             message = new MessageBox(this);
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SplashActivity.this, LoadActivity.class);
             message.generateAlertWithOkNewIntent(loginService.erros.getMessage(), "Erro", intent, SplashActivity.this);
         }else{
             tokenCod = token.getToken();
@@ -79,7 +79,7 @@ public class SplashActivity extends AppCompatActivity implements RequestClientLo
         if(levelService.erros.isHasErro()) {
             message = new MessageBox(this);
             message.generateAlert(levelService.erros.getMessage(), "Erro");
-            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            Intent intent = new Intent(SplashActivity.this, LoadActivity.class);
             startActivity(intent);
         }else{
             Intent mainActivity = new Intent(SplashActivity.this, MainActivity.class);

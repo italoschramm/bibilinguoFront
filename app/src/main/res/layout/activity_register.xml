@@ -5,7 +5,8 @@
     android:id="@+id/activity_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="@color/blue_baby">
 
     <LinearLayout
         android:orientation="vertical"
@@ -17,79 +18,82 @@
         android:weightSum="1">
 
         <ImageView
-            android:layout_width="349dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icone"
             android:id="@+id/imageView"
+            android:layout_width="162dp"
+            android:layout_height="134dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:layout_weight="0.13" />
+            android:layout_weight="0.13"
+            android:src="@drawable/astronaut1" />
 
         <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:hint="Nome"
-            android:ems="10"
-            android:background="#fff"
-            android:layout_marginBottom="10px"
-            android:paddingLeft="10dp"
-            android:layout_gravity="center"
+
             android:id="@+id/edName"
-            android:layout_weight="0.07"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:radius="10dp"/>
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:fontFamily="@font/baksosapi"
+            android:textColor="@color/blue_baby"
+            android:layout_marginBottom="10px"
+            android:hint="Nome"
+            android:paddingLeft="10dp"
+            android:radius="10dp" />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
             android:hint="E-mail"
-            android:ems="10"
-            android:background="#fff"
+            android:inputType="textEmailAddress"
             android:layout_marginBottom="10px"
             android:paddingLeft="10dp"
             android:layout_gravity="center"
             android:id="@+id/edEmail"
             android:layout_weight="0.07"
-            android:layout_marginTop="10dp"
-            android:radius="10dp"/>
+            android:radius="10dp"
+            android:background="@color/white"
+            android:fontFamily="@font/baksosapi"
+            android:textColor="@color/blue_baby"/>
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:ems="10"
             android:hint="Senha"
             android:paddingLeft="10dp"
             android:layout_marginBottom="10px"
-            android:background="#fff"
+            android:layout_gravity="center"
             android:id="@+id/edPassword1"
-            android:layout_weight="0.07" />
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:fontFamily="@font/baksosapi"
+            android:textColor="@color/blue_baby"/>
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:ems="10"
             android:hint="Repetir Senha"
             android:paddingLeft="10dp"
             android:layout_marginBottom="10px"
-            android:background="#fff"
+            android:layout_gravity="center"
             android:id="@+id/edPassword2"
-            android:layout_weight="0.07" />
+            android:layout_weight="0.07"
+            android:background="@color/white"
+            android:fontFamily="@font/baksosapi"
+            android:textColor="@color/blue_baby"/>
 
         <Button
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/register"
+            android:id="@+id/btSaveRegister"
+            android:text="Cadastrar"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:background="#00a6e3"
-            android:textColor="#fff"
-            android:textAllCaps="false"
-            android:radius="10dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/btSaveRegister"/>
+            android:layout_marginTop="20dp"
+            />
     </LinearLayout>
 
 </RelativeLayout>

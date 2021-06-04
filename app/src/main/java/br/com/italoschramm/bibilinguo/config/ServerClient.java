@@ -2,8 +2,8 @@ package br.com.italoschramm.bibilinguo.config;
 
 public class ServerClient {
 
-    //public static final String IP = "192.168.0.7";
-    public static final String IP = "172.20.11.186";
+    public static final String IP = "192.168.0.107"; //local
+    //public static final String IP = "172.20.11.186"; //aws
     public static final String PORT = "8090";
     public static final String API_NAME = "learning-languages";
     public static final String URL_API = "http://" + IP + ":" + PORT + "/" + API_NAME + "/";
